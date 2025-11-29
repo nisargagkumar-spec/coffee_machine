@@ -34,17 +34,24 @@ print("Welcome to the Coffee Cafe!")
 while True:
     user_coffee = input("What would you like? (espresso/latte/cappuccino):")
     if user_coffee=="espresso":
-        print("espresso")
+        print(f"Here is your {user_coffee}")
     elif user_coffee=="latte":
-        print("latte")
-    elif user_coffee=="cappuccino":
-        print("cappuccino")
+        print(f"Here is your {user_coffee}")
+    elif user_coffee=="cappucino":
+        print(f"Here is your {user_coffee}")
     elif user_coffee=="report":
-        for keys in resources:
-            print(keys,resources[keys])
+        print(f"Here is your {resources}")
     elif user_coffee=="off":
-        break
+        print("Machine shut down")
     else:
-        print("Choose from the above 3 options only.")
+        print("Select from the above 3 coffess only!")
 
+    def make_coffee(user_choice):
+        per_coffee = MENU[user_coffee]["ingredients"]
+        for items in per_coffee:
+            cost_per_coffee = MENU[user_coffee]["cost"]
+            required_resources = per_coffee[items]
+            print(items,"-",required_resources)
+        print(f"Your cost for the {user_choice} is:{cost_per_coffee}")
 
+    make_coffee(user_coffee)
