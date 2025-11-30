@@ -28,6 +28,8 @@ resources = {
     "water": 300,
     "milk": 200,
     "coffee": 100,
+    "money":0,
+
 }
 
 print("Welcome to the Coffee Cafe!")
@@ -73,7 +75,7 @@ while True:
                         print(f"Here is your dollars in change $ {refund_money}")
                     else:
                         print(f"The money is not sufficent and the cost of {user_coffee} is {cost_per_coffee}")
-
+                    resources["money"] = resources["money"] + cost_per_coffee
                 process_coins(user_coffee)
             else:
                 print(f"Your coffee cannot be made as {coffee_items} is insufficent")
