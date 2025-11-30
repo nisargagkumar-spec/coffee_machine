@@ -34,18 +34,24 @@ resources = {
 
 print("Welcome to the Coffee Cafe!")
 while True:
-    user_coffee = input("What would you like? (espresso/latte/cappuccino):")
-    if user_coffee=="report":
-        for items in resources:
-            res=resources[items]
-            print(f"{items}-{res}")
-    elif user_coffee=="off":
-        print("Machine shut down")
+    user_coffee = input("What would you like? (espresso/latte/cappuccino):").lower()
+    if user_coffee=="off":
+        print("System shut down")
         break
+    elif user_coffee=="report":
+        for items in resources:
+            machine_resources=resources[items]
+            print(items,machine_resources)
+
+    elif user_coffee not in MENU:
+        try:
+            print("Check for the coffee flavors mentioned above again!")
+        except KeyError:
+            user_coffee = input("What would you like? (espresso/latte/cappuccino):").lower()
     else:
         def check_ingredients():
             per_coffee = MENU[user_coffee]["ingredients"]
-            # check if all ingredients are sufficient
+            # Step 1: check if all ingredients are sufficient
             can_make = True  # assume we can make the coffee
             for coffee_items in per_coffee:
                 required_amount = per_coffee[coffee_items]
@@ -53,7 +59,7 @@ while True:
                 if required_amount > available_amount:
                     can_make = False  # if any ingredient is insufficient
                     break  # no need to check further
-            # subtract resources if coffee can be made
+            # Step 2: subtract resources if coffee can be made
             if can_make:
                 for coffee_items in per_coffee:
                     required_amount = per_coffee[coffee_items]
@@ -75,9 +81,8 @@ while True:
                         print(f"Here is your dollars in change $ {refund_money}")
                     else:
                         print(f"The money is not sufficent and the cost of {user_coffee} is {cost_per_coffee}")
-                    resources["money"] = resources["money"] + cost_per_coffee
+                    resources["money"]=resources["money"]+cost_per_coffee
                 process_coins(user_coffee)
             else:
                 print(f"Your coffee cannot be made as {coffee_items} is insufficent")
-
         check_ingredients()
