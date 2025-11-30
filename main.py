@@ -43,7 +43,7 @@ while True:
     else:
         def check_ingredients():
             per_coffee = MENU[user_coffee]["ingredients"]
-            # Step 1: check if all ingredients are sufficient
+            # check if all ingredients are sufficient
             can_make = True  # assume we can make the coffee
             for coffee_items in per_coffee:
                 required_amount = per_coffee[coffee_items]
@@ -51,27 +51,31 @@ while True:
                 if required_amount > available_amount:
                     can_make = False  # if any ingredient is insufficient
                     break  # no need to check further
-            # Step 2: subtract resources if coffee can be made
+            # subtract resources if coffee can be made
             if can_make:
                 for coffee_items in per_coffee:
                     required_amount = per_coffee[coffee_items]
                     resources[coffee_items] -= required_amount
 
-        def process_coins(user_choice):
-            cost_per_coffee = MENU[user_coffee]["cost"]
-            print(f"Your cost for the {user_choice} is:{cost_per_coffee}")
-            quarters = float(input("How many quarters??"))
-            dimes = float(input("How many dimes?"))
-            nickles = float(input("How many nickles"))
-            pennies = float(input("How many pennies"))
-            total_money = quarters * 0.25 + dimes * 0.10 + nickles * 0.05 + pennies * 0.01
-            if total_money == cost_per_coffee:
-                print(f"Here is your {user_coffee}")
-            elif total_money > cost_per_coffee:
-                refund_money = round(total_money - cost_per_coffee, 2)
-                print(f"Here is your {user_coffee}")
-                print(f"Here is your dollars in change $ {refund_money}")
-            else:
-                print(f"The money is not sufficent and the cost of {user_coffee} is {cost_per_coffee}")
+                def process_coins(user_choice):
+                    cost_per_coffee = MENU[user_coffee]["cost"]
+                    print(f"Your cost for the {user_choice} is:{cost_per_coffee}")
+                    quarters = float(input("How many quarters??"))
+                    dimes = float(input("How many dimes?"))
+                    nickles = float(input("How many nickles"))
+                    pennies = float(input("How many pennies"))
+                    total_money = quarters * 0.25 + dimes * 0.10 + nickles * 0.05 + pennies * 0.01
+                    if total_money == cost_per_coffee:
+                        print(f"Here is your {user_coffee}")
+                    elif total_money > cost_per_coffee:
+                        refund_money = round(total_money - cost_per_coffee, 2)
+                        print(f"Here is your {user_coffee}")
+                        print(f"Here is your dollars in change $ {refund_money}")
+                    else:
+                        print(f"The money is not sufficent and the cost of {user_coffee} is {cost_per_coffee}")
 
-        process_coins(user_coffee)
+                process_coins(user_coffee)
+            else:
+                print(f"Your coffee cannot be made as {coffee_items} is insufficent")
+
+        check_ingredients()
